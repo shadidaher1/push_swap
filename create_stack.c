@@ -1,6 +1,6 @@
 #include "push_swap.h"
 #include "Libft/libft.h"
-static void init_stack(t_stack *stack)
+void init_stack(t_stack *stack)
 {
     stack->head = NULL;
     stack->tail = NULL;
