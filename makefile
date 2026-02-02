@@ -23,7 +23,8 @@ SRCS = push_swap.c \
        checke1.c \
        create_stack.c \
        operations.c \
-	   Sorting.c
+	   Sorting.c \
+	   Chunk_Sorting.c
 
 # Bonus source files (for checker program)
 BONUS_SRCS = checker_bonus.c \

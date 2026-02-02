@@ -32,7 +32,7 @@ void init_stack(t_stack *stack);
 void pa(t_stack *a, t_stack *b);
 void pb(t_stack *a, t_stack *b);
 void ra(t_stack *stack_a);
-void ra(t_stack *stack_b);
+void rb(t_stack *stack_b);
 void rr(t_stack *stack_a, t_stack *stack_b);
 void rra(t_stack *stack);
 void rrb(t_stack *stack);
@@ -40,5 +40,10 @@ void rrr(t_stack *stack_a, t_stack *stack_b);
 int get_min_pos(t_stack *stack);
 void sort_list(t_stack *stack_a, t_stack *stack_b);
 int is_sorted(t_stack *stack_a);
+void assgin_indices(t_stack *stack_a);
+void sort_chunk(t_stack *stack_a, t_stack *stack_b );
+ int find_highest_index(t_stack *stack);
+
+
 
 #endif
