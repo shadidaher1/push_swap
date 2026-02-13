@@ -49,7 +49,7 @@ int find_highest_index(t_stack *stack)
 
 }
 
-static void bring_back(t_stack *stack_a, t_stack *stack_b)
+static void bring_back(t_stack *stack_a, t_stack *stack_b, t_stats *stats)
 {
     int pos;
     int     rot_lef;
@@ -62,7 +62,7 @@ static void bring_back(t_stack *stack_a, t_stack *stack_b)
             
             while (pos >0)
             {
-                rb(stack_b);
+                rb(stack_b, stats);
                 pos--;
                 
             }
@@ -72,12 +72,12 @@ static void bring_back(t_stack *stack_a, t_stack *stack_b)
            rot_lef =stack_b->size- pos ;
            while (rot_lef > 0)
            {
-               rrb(stack_b);
+               rrb(stack_b, stats);
                 rot_lef--;
             }
             
         }
-        pa (stack_a,stack_b);
+        pa (stack_a,stack_b, stats);
     }
 }
 
@@ -90,12 +90,11 @@ static int i_sqrt(int number)
 }
 
 
-void sort_chunk(t_stack *stack_a, t_stack *stack_b )
+void medium_sort(t_stack *stack_a, t_stack *stack_b, t_stats *stats )
 {
     int chunk_size;
     int i;
    
-
     i = 0;
     if (is_sorted(stack_a))
         return;
@@ -106,18 +105,18 @@ void sort_chunk(t_stack *stack_a, t_stack *stack_b )
     {
         if (stack_a->head->index <= i)
         {
-            pb (stack_a, stack_b);
+            pb (stack_a, stack_b, stats);
             i++;
         }
         else if (stack_a->head->index < i + chunk_size)
         {
-            pb (stack_a, stack_b);
-            rb(stack_b);
+            pb (stack_a, stack_b, stats);
+            rb(stack_b, stats);
             i++;
         }
         else
-            ra(stack_a);    
+            ra(stack_a, stats);    
         
     }
-    bring_back(stack_a, stack_b);
+    bring_back(stack_a, stack_b, stats);
 }

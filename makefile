@@ -24,7 +24,10 @@ SRCS = push_swap.c \
        create_stack.c \
        operations.c \
 	   Sorting.c \
-	   Chunk_Sorting.c
+	   Chunk_Sorting.c\
+	   radix_sorting.c \
+	   adaptive_sort.c\
+	   bench.c
 
 # Bonus source files (for checker program)
 BONUS_SRCS = checker_bonus.c \

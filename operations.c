@@ -18,23 +18,41 @@ void swap(t_stack *stack)
         stack->head->next->index = ind_tmp;
     }
 }
-void sa(t_stack *stack)
+
+
+void sa(t_stack *stack, t_stats *stats)
 {
     swap(stack);
     write(1, "sa\n", 3);
+    if (stats)
+    {
+        stats->sa++;
+        stats->total_ops++;
+    }
 }
 
-void sb(t_stack *stack)
+void sb(t_stack *stack,t_stats *stats )
 {
     swap(stack);
     write(1, "sb\n", 3);
+     if (stats)
+    {
+        stats->sb++;
+        stats->total_ops++;
+    }
 }
 
-void ss(t_stack *stack_a, t_stack *stack_b)
+
+void ss(t_stack *stack_a, t_stack *stack_b, t_stats *stats)
 {
     swap(stack_a);
     swap(stack_b);
     write(1, "ss\n", 3);
+    if (stats)
+    {
+        stats->ss++;
+        stats->total_ops++;
+    }
 }
 
 static void push(t_stack *dst, t_stack *src)
@@ -59,16 +77,27 @@ static void push(t_stack *dst, t_stack *src)
     dst->head = tmp;
     dst->size++;
 }
-void pa(t_stack *a, t_stack *b)
+void pa(t_stack *a, t_stack *b, t_stats *stats)
 {
     push(a, b);
     write(1, "pa\n", 3);
+    if (stats)
+    {
+        stats->pa++;
+        stats->total_ops++;
+    }
 }
 
-void pb(t_stack *a, t_stack *b)
+void pb(t_stack *a, t_stack *b, t_stats *stats)
 {
     push(b, a);
     write(1, "pb\n", 3);
+    if(stats)
+    {
+
+        stats->pb++;
+        stats->total_ops++;
+    }
 }
 
 void rotate(t_stack *stack)
@@ -88,23 +117,39 @@ void rotate(t_stack *stack)
     stack->tail = first;
 }
 
-void ra(t_stack *stack_a)
+void ra(t_stack *stack_a, t_stats *stats)
 {
     rotate(stack_a);
     write(1, "ra\n", 3);
+     if(stats)
+    {
+
+        stats->ra++;
+        stats->total_ops++;
+    }
 }
 
-void rb(t_stack *stack_b)
+void rb(t_stack *stack_b, t_stats *stats)
 {
     rotate(stack_b);
     write(1, "rb\n", 3);
+    if(stats)
+    {
+        stats->rb++;
+        stats->total_ops++;
+    }
 }
 
-void rr(t_stack *stack_a, t_stack *stack_b)
+void rr(t_stack *stack_a, t_stack *stack_b, t_stats *stats)
 {
     rotate(stack_a);
     rotate(stack_b);
-    write(1, "rr/n", 3);
+    write(1, "rr\n", 3);
+      if(stats)
+    {
+        stats->rr++;
+        stats->total_ops++;
+    }
 }
 static void revers_rotate(t_stack *stack)
 {
@@ -122,19 +167,34 @@ static void revers_rotate(t_stack *stack)
     last->next = NULL;
     stack->tail = last;
 }
-void rra(t_stack *stack)
+void rra(t_stack *stack, t_stats *stats)
 {
     revers_rotate(stack);
     write(1, "rra\n", 4);
+    if (stats)
+    {
+        stats->rra++;
+        stats->total_ops++;
+    }
 }
-void rrb(t_stack *stack)
+void rrb(t_stack *stack, t_stats *stats)
 {
     revers_rotate(stack);
     write(1, "rrb\n", 4);
+    if (stats)
+    {
+        stats->rrb++;
+        stats->total_ops++;
+    }
 }
-void rrr(t_stack *stack_a, t_stack *stack_b)
+void rrr(t_stack *stack_a, t_stack *stack_b,  t_stats *stats)
 {
     revers_rotate(stack_a);
     revers_rotate(stack_b);
     write(1, "rrr\n", 4);
+      if (stats)
+    {
+        stats->rrr++;
+        stats->total_ops++;
+    }
 }

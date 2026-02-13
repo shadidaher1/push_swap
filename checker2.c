@@ -78,7 +78,7 @@
 //         i++;
 //     }
 // }
-static void free_split(char **split)
+void free_split(char **split)
 {
     int i;
 
@@ -113,18 +113,41 @@ static void check_duplicates(char **split, int start, int should_free)
     }
 }
 
-void check_double(int argc, char **argv)
+// void check_double(int argc, char **argv)
+// {
+//     char **split;
+
+//     if (argc == 2)
+//     {
+//         split = ft_split(argv[1], ' ');
+//         check_duplicates(split, 0, 1);
+//         free_split(split);
+//     }
+//     else
+//         check_duplicates(argv, 1, 0);
+// }
+
+void check_double(int argc, char **argv, int start)
 {
     char **split;
+    int num_count;
 
-    if (argc == 2)
+    if (start >= argc)
+        return;
+    
+    num_count = argc - start;
+    
+
+    if (num_count == 1 && ft_strchr(argv[start], ' '))
     {
-        split = ft_split(argv[1], ' ');
+        split = ft_split(argv[start], ' ');
         check_duplicates(split, 0, 1);
         free_split(split);
     }
+    
     else
-        check_duplicates(argv, 1, 0);
+        check_duplicates(argv, start, 0);
+    
 }
 
 long ftt_atoi(const char *nptr)

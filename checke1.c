@@ -36,19 +36,46 @@ static void validate_string(char *str)
 }
 
 
-void is_number(int argc, char **argv)
+// void is_number(int argc, char **argv)
+// {
+//     int i;
+
+//     if (argc == 1)
+//         return;void free_split(char **split)
+
+//     }
+//     check_double(argc, argv);
+// }
+
+void is_number(int argc, char **argv, int start)
 {
     int i;
 
-    if (argc == 1)
+    if (start >= argc)
         return;
-    i = 1;
+    
+    i = start;
     while (i < argc)
     {
         validate_string(argv[i]);
         i++;
     }
-    check_double(argc, argv);
+    check_double(argc, argv, start);
+}
+int calculate_start_index(int argc, char **argv)
+{
+    int i;
+
+    i = 1;
+    while (i < argc && argv[i][0] == '-')
+    {
+        // Skip --simple, --bench, etc.
+        if (ft_strncmp(argv[i], "--", 2) == 0)
+            i++;
+        else
+            break;
+    }
+    return (i);
 }
 
 void throw_error()

@@ -3,6 +3,24 @@
 #include <unistd.h>
 #include <stdlib.h>
 
+typedef struct s_stats
+{
+    int sa;
+    int sb;
+    int ss;
+    int pa;
+    int pb;
+    int ra;
+    int rb;
+    int rr;
+    int rra;
+    int rrb;
+    int rrr;
+    int total_ops;
+    int bench_mode; 
+    float   disorder;
+} t_stats;
+
 typedef struct s_node
 {
     int number;
@@ -19,30 +37,40 @@ typedef struct s_stack
     float disorder;
 } t_stack;
 
-void is_number(int argc, char **argv);
+void is_number(int argc, char **argv, int start);
 void throw_error();
 long ftt_atoi(const char *nptr);
-void check_double(int argc, char **argv);
-void create_stack(t_stack *stack_a, int argc, char **argv);
-void ss(t_stack *stack_a, t_stack *stack_b);
-void sb(t_stack *stack);
-void sa(t_stack *stack);
+void check_double(int argc, char **argv, int start);
+void create_stack(t_stack *stack_a, int argc, char **argv, int start);
+void ss(t_stack *stack_a, t_stack *stack_b, t_stats *stats);
+void sb(t_stack *stack, t_stats *stats);
+void sa(t_stack *stack, t_stats *stats);
 void swap(t_stack *stack);
 void init_stack(t_stack *stack);
-void pa(t_stack *a, t_stack *b);
-void pb(t_stack *a, t_stack *b);
-void ra(t_stack *stack_a);
-void rb(t_stack *stack_b);
-void rr(t_stack *stack_a, t_stack *stack_b);
-void rra(t_stack *stack);
-void rrb(t_stack *stack);
-void rrr(t_stack *stack_a, t_stack *stack_b);
+void pa(t_stack *a, t_stack *b, t_stats *stats);
+void pb(t_stack *a, t_stack *b, t_stats *stats);
+void ra(t_stack *stack_a, t_stats *stats);
+void rb(t_stack *stack_b, t_stats *stats);
+void rr(t_stack *stack_a, t_stack *stack_b, t_stats *stats);
+void rra(t_stack *stack, t_stats *stats);
+void rrb(t_stack *stack, t_stats *stats);
+void rrr(t_stack *stack_a, t_stack *stack_b, t_stats *stats);
 int get_min_pos(t_stack *stack);
-void sort_list(t_stack *stack_a, t_stack *stack_b);
+void simple_sort(t_stack *stack_a, t_stack *stack_b, t_stats *stats);
 int is_sorted(t_stack *stack_a);
 void assgin_indices(t_stack *stack_a);
-void sort_chunk(t_stack *stack_a, t_stack *stack_b );
+void medium_sort(t_stack *stack_a, t_stack *stack_b, t_stats *stats );
  int find_highest_index(t_stack *stack);
+void radix_sort(t_stack *stack_a, t_stack *stack_b, t_stats *stats);
+void	adaptive_sort(t_stack *a, t_stack *b, t_stats *stats);
+int parse_strategy(int argc, char **argv, char **strategy);
+void free_split(char **split);
+int parse_flags(int argc, char **argv, char **strategy, t_stats *stats);
+int calculate_start_index(int argc, char **argv);
+void assgin_indices(t_stack *stack_a);
+void	print_disorder_pct(float disorder, int fd);
+ float	calculate_disorder(t_stack *a);
+void print_bench(t_stats *stats, char *strategy);
 
 
 
