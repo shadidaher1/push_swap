@@ -1,58 +1,55 @@
 #include "push_swap.h"
 #include "Libft/libft.h"
 
-static int is_valid_char(char c)
+static int	is_valid_char(char c)
 {
-    return (ft_isdigit(c) || c == ' ' || c == '+' || c == '-');
+	return (ft_isdigit(c) || c == ' ' || c == '+' || c == '-');
 }
 
-static void check_sign(int i, char *str)
+static void	check_sign(int i, char *str)
 {
-    if (str[i] == '+' || str[i] == '-')
-    {
-
-        if (i > 0 && str[i - 1] != ' ')
-            throw_error();
-        if (!ft_isdigit(str[i + 1]))
-            throw_error();
-    }
+	if (str[i] == '+' || str[i] == '-')
+	{
+		if (i > 0 && str[i - 1] != ' ')
+			throw_error();
+		if (!ft_isdigit(str[i + 1]))
+			throw_error();
+	}
 }
 
-static void validate_string(char *str)
+static void	validate_string(char *str)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    if (!str[i])
-        throw_error();
-    while (str[i])
-    {
-        if (!(is_valid_char(str[i])))
-            throw_error();
-        check_sign(i, str);
-        
-        i++;
-    }
+	i = 0;
+	if (!str[i])
+		throw_error();
+	while (str[i])
+	{
+		if (!(is_valid_char(str[i])))
+			throw_error();
+		check_sign(i, str);
+		i++;
+	}
 }
 
-
-void is_number( int argc, char **argv, int start)
+void	is_number( int argc, char **argv, int start)
 {
-    int i;
+	int	i;
 
-    if (argc == 1)
-        return;
-    i = start;
-    while (i < argc)
-    {
-        validate_string(argv[i]);
-        i++;
-    }
-    check_double(argc, argv, start);
+	if (argc == 1)
+		return ;
+	i = start;
+	while (i < argc)
+	{
+		validate_string(argv[i]);
+		i++;
+	}
+	check_double(argc, argv, start);
 }
 
-void throw_error()
+void	throw_error()
 {
-    write(2, "Error\n", 6);
-    exit(1);
+	write(2, "Error\n", 6);
+	exit(1);
 }

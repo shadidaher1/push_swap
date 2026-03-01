@@ -21,7 +21,10 @@ SRCS = push_swap.c \
        checker2.c \
        checke1.c \
        create_stack.c \
-       operations.c \
+       operations1.c \
+       operations2.c \
+       operations3.c \
+       operations4.c \
 	   Simple_Sorting.c \
 	   Medium_Sorting.c \
 	   Complex_Sorting.c \
