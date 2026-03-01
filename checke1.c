@@ -5,6 +5,7 @@ static int is_valid_char(char c)
 {
     return (ft_isdigit(c) || c == ' ' || c == '+' || c == '-');
 }
+
 static void check_sign(int i, char *str)
 {
     if (str[i] == '+' || str[i] == '-')
@@ -29,26 +30,25 @@ static void validate_string(char *str)
         if (!(is_valid_char(str[i])))
             throw_error();
         check_sign(i, str);
-        // if (str[i] == ' ' && !ft_isdigit(str[i - 1]))
-        //     throw_error();
+        
         i++;
     }
 }
 
 
-void is_number(int argc, char **argv)
+void is_number( int argc, char **argv, int start)
 {
     int i;
 
     if (argc == 1)
         return;
-    i = 1;
+    i = start;
     while (i < argc)
     {
         validate_string(argv[i]);
         i++;
     }
-    check_double(argc, argv);
+    check_double(argc, argv, start);
 }
 
 void throw_error()

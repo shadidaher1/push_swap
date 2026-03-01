@@ -1,5 +1,6 @@
 #include "push_swap.h"
 #include "Libft/libft.h"
+
 void init_stack(t_stack *stack)
 {
     stack->head = NULL;
@@ -53,16 +54,16 @@ static void build_stack(t_stack *stack, char **str, int i)
     }
 }
 
-void create_stack(t_stack *stack_a, int argc, char **argv)
+void create_stack(t_stack *stack_a, int start, int argc, char **argv)
 {
     char **split;
 
     init_stack(stack_a);
-    if (argc == 2)
+    if (start == argc - 1)
     {
-        split = ft_split(argv[1], ' ');
+        split = ft_split(argv[start], ' ');
         build_stack(stack_a, split, 0);
     }
     else
-        build_stack(stack_a, argv, 1);
+        build_stack(stack_a, argv, start);
 }

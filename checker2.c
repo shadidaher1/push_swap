@@ -2,82 +2,6 @@
 #include <limits.h>
 #include "Libft/libft.h"
 
-// static void validate_double(int argc, char **argv, int i, char **split_a)
-// {
-//     int a;
-//     int b;
-//     int k;
-//     long num_a;
-//     long num_b;
-//     char **split_b;
-//     int j;
-
-//     j = 0;
-
-//     while (split_a[j])
-//     {
-//         num_a = ftt_atoi(split_a[j]);
-//         a = j + 1;
-//         while (split_a[a])
-//         {
-//             if (num_a == ftt_atoi(split_a[a]))
-//                 throw_error();
-//             a++;
-//         }
-//         b = i + 1;
-//         while (b < argc)
-//         {
-//             split_b = ft_split(argv[b], ' ');
-//             k = 0;
-//             while (split_b[k])
-//             {
-//                 num_b = ftt_atoi(split_b[k]);
-//                 if ((num_a) == num_b)
-//                     throw_error();
-//                 k++;
-//             }
-//             b++;
-//         }
-
-//         j++;
-//     }
-// }
-
-// void check_double(int argc, char **argv)
-// {
-//     int i;
-//     char **spllit;
-//     int num;
-//     int j;
-//     int should_free;
-
-//     should_free = 0;
-//     if (argc == 2)
-//     {
-//         spllit = ft_split(argv[1], ' ');
-//         i = 0;
-//     }
-//     else
-//     {
-//         spllit = argv;
-//         i = 1;
-//     }
-
-//     while (spllit[i])
-//     {
-//         num = ftt_atoi(spllit[i]);
-//         j = i + 1;
-//         while (spllit[j])
-//         {
-//             if (ftt_atoi(spllit[j]) == num)
-//                 if (should_free)
-//                     free_split(spllit);
-//             throw_error();
-//             j++;
-//         }
-//         i++;
-//     }
-// }
 static void free_split(char **split)
 {
     int i;
@@ -113,18 +37,18 @@ static void check_duplicates(char **split, int start, int should_free)
     }
 }
 
-void check_double(int argc, char **argv)
+void check_double(int argc, char **argv, int start)
 {
     char **split;
 
-    if (argc == 2)
+    if (start == argc -1)
     {
-        split = ft_split(argv[1], ' ');
+        split = ft_split(argv[start], ' ');
         check_duplicates(split, 0, 1);
         free_split(split);
     }
     else
-        check_duplicates(argv, 1, 0);
+        check_duplicates(argv, start, 0);
 }
 
 long ftt_atoi(const char *nptr)
@@ -147,10 +71,9 @@ long ftt_atoi(const char *nptr)
     while (nptr[i] && nptr[i] >= '0' && nptr[i] <= '9')
     {
         result = result * 10 + (nptr[i] - '0');
-        i++;
-    }
-    result = result * sign;
-    if (result > INT_MAX || result < INT_MIN)
+          if (result > INT_MAX || result < INT_MIN)
         throw_error();
-    return (result);
+        i++;
+    }  
+    return (result * sign);
 }

@@ -1,10 +1,10 @@
 #include "push_swap.h"
 #include <stdio.h>
 
-static void sort_two(t_stack *stack_a)
+static void sort_two(t_stack *stack_a,  t_stats *stats)
 {
     if (stack_a->head->number > stack_a->head->next->number)
-        sa(stack_a);
+        sa(stack_a, stats);
 }
 int get_min_pos(t_stack *stack)
 {
@@ -32,7 +32,7 @@ int get_min_pos(t_stack *stack)
     return (min_pos);
 }
 
-static void sort_three(t_stack *stack_a)
+static void sort_three(t_stack *stack_a,  t_stats *stats)
 {
     int pos;
     t_node *tmp;
@@ -42,42 +42,37 @@ static void sort_three(t_stack *stack_a)
     pos = get_min_pos(stack_a);
 
     if (pos == 1 && stack_a->head->number < tmp->next->number)
-        sa(stack_a);
+        sa(stack_a, stats);
     else if (stack_a->head->number > tmp->next->number && pos == 1)
-    {
-        ra(stack_a);
-    }
+        ra(stack_a, stats);
     else if (tmp->number > tmp->next->number && pos == 0)
     {
-        rra(stack_a);
-        sa(stack_a);
+        rra(stack_a, stats);
+        sa(stack_a, stats);
     }
     else if (pos == 2 && stack_a->head->number > tmp->number)
     {
-        ra(stack_a);
-        sa(stack_a);
+        ra(stack_a, stats);
+        sa(stack_a, stats);
     }
     else if (pos == 2 && stack_a->head->number < tmp->number)
-        rra(stack_a);
+        rra(stack_a, stats);
 }
 
-static void empty_stackb(t_stack *stack_a, t_stack *stack_b)
+static void empty_stackb(t_stack *stack_a, t_stack *stack_b,  t_stats *stats)
 {
     if (!stack_b)
-        return;
-    else
+        return ;
+    while (stack_b->head != NULL)
     {
-        while (stack_b->head != NULL)
-        {
-            pa(stack_a, stack_b);
-        }
+        pa(stack_a, stack_b, stats);
     }
 }
 int is_sorted(t_stack *stack_a)
 {
     t_node *tmp;
 
-    if (stack_a->size <= 1 || !stack_a || !stack_a->head)
+    if (!stack_a || !stack_a->head || stack_a->size <= 1)
         return (1);
     tmp = stack_a->head;
     while (tmp->next)
@@ -90,16 +85,16 @@ int is_sorted(t_stack *stack_a)
     return (1);
 }
 
-void sort_list(t_stack *stack_a, t_stack *stack_b)
+void simple_sort(t_stack *stack_a, t_stack *stack_b, t_stats *stats)
 {
     int pos;
 
     if (is_sorted(stack_a))
         return;
     if (stack_a->size == 2)
-        return (sort_two(stack_a));
+        return (sort_two(stack_a, stats));
     else if (stack_a->size == 3)
-        return (sort_three(stack_a));
+        return (sort_three(stack_a, stats));
     pos = get_min_pos(stack_a);
     while (stack_a->size > 3)
     {
@@ -107,13 +102,13 @@ void sort_list(t_stack *stack_a, t_stack *stack_b)
         while (pos != 0)
         {
             if (pos <= stack_a->size / 2)
-                ra(stack_a);
+                ra(stack_a, stats);
             else if (pos > stack_a->size / 2)
-                rra(stack_a);
+                rra(stack_a, stats);
             pos = get_min_pos(stack_a);
         }
-        pb(stack_a, stack_b);
+        pb(stack_a, stack_b, stats);
     }
-    sort_three(stack_a);
-    empty_stackb(stack_a, stack_b);
+    sort_three(stack_a, stats);
+    empty_stackb(stack_a, stack_b,stats);
 }

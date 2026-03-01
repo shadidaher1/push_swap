@@ -18,13 +18,15 @@ INCLUDES = -I. -I$(LIBFT_DIR) -I$(PRINTF_DIR)
 
 # Source files
 SRCS = push_swap.c \
-       checker.c \
        checker2.c \
        checke1.c \
        create_stack.c \
        operations.c \
-	   Sorting.c \
-	   Chunk_Sorting.c
+	   Simple_Sorting.c \
+	   Medium_Sorting.c \
+	   Complex_Sorting.c \
+	   adaptive_sort.c \
+	   bench.c
 
 # Bonus source files (for checker program)
 BONUS_SRCS = checker_bonus.c \

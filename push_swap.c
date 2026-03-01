@@ -1,5 +1,6 @@
 #include "push_swap.h"
 #include <stdio.h>
+#include "../Libft/libft.h"
 
 void print_St(t_stack *stack)
 {
@@ -52,18 +53,62 @@ void clear_stack(t_stack *stack)
     // IMPORTANT: Remove free(stack); 
     // Because stack_a and stack_b are local variables in main.
 }
+
+void free_stack(t_stack *stack)
+{
+    t_node *current;
+    t_node *next;
+
+    current = stack->head;
+    while (current)
+    {
+        next = current->next;
+        free(current);
+        current = next;
+    }
+    stack->head = NULL;
+    stack->tail = NULL;
+    stack->size = 0;
+}
+
+void run_push_swap(int start, int argc, char **argv, char *strategy, t_stats *stats)
+{
+     t_stack stack_a;
+    t_stack stack_b;
+
+     is_number( argc, argv, start);
+    create_stack(&stack_a, start, argc, argv);
+    init_stack(&stack_b);
+    assgin_indices(&stack_a);
+    stats->disorder = calculate_disorder(&stack_a);
+    if (ft_strncmp(strategy, "simple", 7) == 0)
+        simple_sort(&stack_a, &stack_b, stats);
+    else if (ft_strncmp(strategy, "medium", 7) == 0)
+        medium_sort(&stack_a, &stack_b, stats);
+    else if (ft_strncmp(strategy, "complex", 8) == 0)
+        radix_sort(&stack_a, &stack_b, stats);
+    else
+        adaptive_sort(&stack_a, &stack_b, stats);
+    if (stats->bench_mode)
+        print_bench(stats, get_strategy_name(strategy, stats->disorder));
+      free_stack(&stack_a); 
+    // print_St(&stack_a);
+}
+
 int main(int argc, char **argv)
 {
-    t_stack stack_a;
-    t_stack stack_b;
+   
+    int start;
+    char    *strategy;
+    t_stats stats;
+
+    ft_memset(&stats, 0, sizeof(t_stats));
+    start = parse_flags(argc, argv, &strategy, &stats);
+    if (start == argc)
+        return (0);
+    run_push_swap(start, argc, argv, strategy, &stats);
+    return (0);
     
-    is_number(argc, argv);
-    create_stack(&stack_a, argc, argv);
-    init_stack(&stack_b);
-    sort_chunk(&stack_a,&stack_b);
-    print_St(&stack_a);
-    clear_stack(&stack_a);
-    clear_stack(&stack_b);
     // int min;
     // int i;
     //     print_St(&stack_a);
